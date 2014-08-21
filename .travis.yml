@@ -1,9 +1,18 @@
-language: rust
+install:
+  - curl -s https://static.rust-lang.org/rustup.sh | sudo sh
+
+script:
+  - which rustc
+  - which cargo
+  - rustc --version
+  - cargo --version
+  - cargo build
+  - cargo test
+  - cargo doc
 
 after_success: |
   [ $TRAVIS_BRANCH = master ] &&
   [ $TRAVIS_PULL_REQUEST = false ] &&
-  cargo doc &&
   echo '<meta http-equiv=refresh content=0;url=url/index.html>' > target/doc/index.html &&
   cp github.png target/doc/ &&
   sudo pip install ghp-import &&
